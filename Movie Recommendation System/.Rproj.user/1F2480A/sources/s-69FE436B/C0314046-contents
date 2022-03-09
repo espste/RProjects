@@ -1,0 +1,99 @@
+library(ranger)
+library(caret)
+library(data.table)
+
+creditcard_data <- read.csv("C:/Users/espst/Documents/RProjects/Detect Credit Card Fraud/creditcard.csv")
+
+# 2.  DATA EXPLORATION
+# We will proceed by displaying the creditcard_data using the head() function as well as the tail() function.
+# We will then proceed to explore the other components of this dataframe
+
+dim(creditcard_data)
+
+head(creditcard_data)
+
+tail(creditcard_data)
+
+table(creditcard_data$Class)
+
+summary(creditcard_data$Amount)
+
+names(creditcard_data)
+
+var(creditcard_data$Amount)
+
+sd(creditcard_data$Amount)
+
+
+# 3.  DATA MANIPULATION
+# In this section of the R data science project, we will scale our data using
+# the scale() function. We will apply this to the amount component of our 
+# creditcard_data amount. Scaling is also known as feature standardization. 
+# With the help of scaling, the data is structured according to a specified 
+# range. Therefore, there are no extreme values in our dataset that might 
+# interfere with the functioning of our model.
+
+head(creditcard_data)
+
+creditcard_data$Amount=scale(creditcard_data$Amount)
+NewData=creditcard_data[,-c(1)]
+head(NewData)
+
+
+# 4.  DATA MODELING
+# After we have standardized our entire dataset, we will split our dataset 
+# into training set as well as test set with a split ratio of 0.80. 
+# This means that 80% of our data will be attributed to the train_data whereas
+# 20% will be attributed to the test data. We will then find the dimensions 
+# using the dim() function
+
+library(caTools)
+set.seed(123)
+data_sample = sample.split(NewData$Class,SplitRatio = 0.80)
+train_data = subset(NewData, data_sample==TRUE)
+test_data = subset(NewData, data_sample==FALSE)
+
+dim(train_data)
+dim(test_data)
+
+
+# 5.  FITTING LOGISTIC REGRESSION MODEL
+# In this section of credit card fraud detection project, we will fit our 
+# first model. We will begin with logistic regression. A logistic regression
+# is used for modeling the outcome probability of a class such as pass/fail, 
+# positive/negative and in our case – fraud/not fraud. We proceed to implement
+# this model on our test data.
+
+Logistic_Model=glm(Class~.,test_data,family = binomial())
+summary(Logistic_Model)
+
+# Visualizing it through the following plots
+plot(Logistic_Model)
+
+# In order to assess the performance of our model, we will delineate the ROC curve.
+# ROC is also known as Receiver Optimistic Characteristics. First import then plot
+# our ROC curve to analyze its performance.
+
+library(pROC)
+
+lr.predict <- predict(Logistic_Model,test_data, probability = TRUE)
+auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, col = "blue")
+
+
+# 6.  FITTING A DECISION TREE MODEL
+# In this section, we will implement a decision tree algorithm. Decision Trees to
+# plot the outcomes of a decision. These outcomes are basically a consequence 
+# through which we can conclude as to what class the object belongs to. 
+# We will now implement our decision tree model and will plot it using the rpart.plot() 
+# function. We will specifically use the recursive parting to plot the decision tree.
+
+library(rpart)
+
+decisionTree_model <- rpart(Class ~. , creditcard_data, method = 'class')
+predicted_val <- 
+
+
+
+
+
+

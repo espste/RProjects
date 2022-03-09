@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634501489948.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3024051568",
+    "id" : "C0314046",
+    "lastKnownWriteTime" : 1634505302,
+    "last_content_update" : 1634505788257,
+    "path" : "~/RProjects/Detect Credit Card Fraud/CC Fraud.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "92,17",
+        "scrollLine" : "66",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
